@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView
+	    android:id="@+id/recipe_name"
+	    android:textColor="?android:textColorPrimary"
+	    android:textSize="17sp"
+	    android:background="@android:drawable/title_bar"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" />
+	<TextView
+        android:id="@+id/description_text"
+        android:textColor="?android:textColorPrimary"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+	<TextView
+        android:id="@+id/ingredients"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="17sp"
+        android:text="@string/title_ingredients"
+        android:background="@android:drawable/title_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+	<LinearLayout
+        android:id="@+id/ingredients_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+	<TextView
+        android:id="@+id/instructions"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="17sp"
+        android:text="@string/title_instructions"
+        android:background="@android:drawable/title_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+	<LinearLayout
+        android:id="@+id/instructions_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+</LinearLayout>
