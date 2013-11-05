@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -21,7 +22,6 @@ public class RecipeBox implements Parcelable {
 	
 	//Public Variables
 	
-
 	//Private Variables
 	private static final String TAG = "RecipeBox";
 	private ArrayList<Recipe> RECIPES = new ArrayList<Recipe>();
@@ -32,8 +32,7 @@ public class RecipeBox implements Parcelable {
 	}
 	
 	RecipeBox(ArrayList<Recipe> recipeList) {
-		final String fTAG = "Constructor: ";
-		Log.d(TAG, fTAG + "Initialize recipe box from ArrayList<Recipe>");
+		Log.v(TAG, "Initialize recipe box from ArrayList<Recipe>");
 		RECIPES = recipeList;
 		
 		//Remove duplicates
@@ -120,75 +119,75 @@ public class RecipeBox implements Parcelable {
 	// Results are prioritized based on where the search term was. The order of 
 	// importance is: NAME, CATEGORY, INGREDIENT, DESCRIPTION, INSTRUCTION. 
 	// 
-			public ArrayList<Recipe> search(String searchTerm){
-				
-				// The final container to be returned
-				ArrayList<Recipe> mRecipes = new ArrayList<Recipe>();
-				
-				// Temporary containers to hold the search results until they can 
-				// be combined in mRecipes 
-				ArrayList<Recipe> mRecipesNAME = new ArrayList<Recipe>();
-				ArrayList<Recipe> mRecipesCATEGORY = new ArrayList<Recipe>();
-				ArrayList<Recipe> mRecipesINGREDIENT = new ArrayList<Recipe>();
-				ArrayList<Recipe> mRecipesDESCRIPTION = new ArrayList<Recipe>();
-				ArrayList<Recipe> mRecipesINSTRUCTION = new ArrayList<Recipe>();
-				Iterator<Recipe> iterator = RECIPES.iterator(); 
-				
-				// Search all recipes in Recipe Box for name matches
-				while (iterator.hasNext()){
+	public ArrayList<Recipe> search(String searchTerm){
+		
+		// Temporary containers to hold the search results until they can 
+		// be combined in mRecipes 
+		ArrayList<Recipe> mRecipesNAME = new ArrayList<Recipe>();
+		ArrayList<Recipe> mRecipesCATEGORY = new ArrayList<Recipe>();
+		ArrayList<Recipe> mRecipesINGREDIENT = new ArrayList<Recipe>();
+		ArrayList<Recipe> mRecipesDESCRIPTION = new ArrayList<Recipe>();
+		ArrayList<Recipe> mRecipesINSTRUCTION = new ArrayList<Recipe>();
+		Iterator<Recipe> iterator = RECIPES.iterator(); 
+		
+		// Search all recipes in Recipe Box for name matches
+		while (iterator.hasNext()){
 
-					// Load the next recipe
-					Recipe recipe = iterator.next();
-					
-					// Check for recipe NAME match
-					if (recipe.nameContains(searchTerm)){
-						
-						// Positive search result, add to list
-						mRecipesNAME.add(recipe);
-					}
-					// Check for recipe CATEGORY match
-					else if (recipe.categoriesContain(searchTerm)) {
-					
-						// Positive search result, add to list
-						mRecipesCATEGORY.add(recipe);
-						
-					}
-					// Check for recipe INGREDIENT match
-					else if (recipe.ingredientsContain(searchTerm)) {
-						
-						// Positive search result, add to list
-						mRecipesINGREDIENT.add(recipe);
-						
-					}
-					// Check for recipe DESCRIPTION match
-					else if (recipe.descriptionContains(searchTerm)) {
-						
-						// Positive search result, add to list
-						mRecipesDESCRIPTION.add(recipe);
-						
-					}
-					// Check for recipe INSTRUCTION match
-					else if (recipe.instructionsContain(searchTerm)) {
-						
-						// Positive search result, add to list
-						mRecipesINSTRUCTION.add(recipe);
-						
-					}
-					
-				}
+			// Load the next recipe
+			Recipe recipe = iterator.next();
+			
+			// Check for recipe NAME match
+			if (recipe.nameContains(searchTerm)){
 				
-				// Create an ordered list of recipes from most important to least important
-				mRecipes.addAll(mRecipesNAME);
-				mRecipes.addAll(mRecipesCATEGORY);
-				mRecipes.addAll(mRecipesINGREDIENT);
-				mRecipes.addAll(mRecipesDESCRIPTION);
-				mRecipes.addAll(mRecipesINSTRUCTION);
-				
-				// Return ordered list of recipes
-				Log.d(TAG, "Finish function searchNames");
-				return mRecipes;
+				// Positive search result, add to list
+				mRecipesNAME.add(recipe);
+			}
+			// Check for recipe CATEGORY match
+			else if (recipe.categoriesContain(searchTerm)) {
+			
+				// Positive search result, add to list
+				mRecipesCATEGORY.add(recipe);
 				
 			}
+			// Check for recipe INGREDIENT match
+			else if (recipe.ingredientsContain(searchTerm)) {
+				
+				// Positive search result, add to list
+				mRecipesINGREDIENT.add(recipe);
+				
+			}
+			// Check for recipe DESCRIPTION match
+			else if (recipe.descriptionContains(searchTerm)) {
+				
+				// Positive search result, add to list
+				mRecipesDESCRIPTION.add(recipe);
+				
+			}
+			// Check for recipe INSTRUCTION match
+			else if (recipe.instructionsContain(searchTerm)) {
+				
+				// Positive search result, add to list
+				mRecipesINSTRUCTION.add(recipe);
+				
+			}
+		}
+		
+		/* Create an ordered list of recipes from most important to least important. mRecipes will
+		 * maintain elements in the order they are added. LinkedHashSet is used because it does not
+		 * allow duplicate entries.
+		 */
+		LinkedHashSet<Recipe> mRecipes = new LinkedHashSet<Recipe>();
+		
+		mRecipes.addAll(mRecipesNAME);
+		mRecipes.addAll(mRecipesCATEGORY);
+		mRecipes.addAll(mRecipesINGREDIENT);
+		mRecipes.addAll(mRecipesDESCRIPTION);
+		mRecipes.addAll(mRecipesINSTRUCTION);
+		
+		// Convert back to ArrayList and return
+		return new ArrayList<Recipe>(mRecipes);
+		
+	}
 
 	// Returns an ArrayList of Strings of every recipe name in the Recipe Box
 	public ArrayList<String> recipeNameList(){
