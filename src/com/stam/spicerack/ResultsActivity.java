@@ -50,8 +50,6 @@ public class ResultsActivity extends Activity{
 	private void showResults(final RecipeBox results) {
     	Log.d(TAG, "Displays the results of the search");
     	
-//    	int numResults = results.numRecipes();
-//    	String[] resultString = results.recipeNameList().toArray(new String[numResults]);
     	// Check if results exist
     	if (results == null){
     		// TODO Display no results text
@@ -59,8 +57,7 @@ public class ResultsActivity extends Activity{
     		
     	} else {
     		// Bind results to list view
-//    		Adapter adapter = new ArrayAdapter<String>(this.getBaseContext(), 
-//    				R.layout.recipe_result, resultString);
+
     		
     		Log.d(TAG, "Set the adapter for recipe results");
     		Adapter adapter = new RecipeAdapter(this.getBaseContext(), 

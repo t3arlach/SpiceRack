@@ -27,13 +27,11 @@ public class RecipeBox implements Parcelable {
 	private ArrayList<Recipe> RECIPES = new ArrayList<Recipe>();
 	
 	RecipeBox() {
-//		super();
 		final String fTAG = "Constructor: ";
 		Log.d(TAG, fTAG + "Initialize empty recipe box");
 	}
 	
 	RecipeBox(ArrayList<Recipe> recipeList) {
-//		super();
 		final String fTAG = "Constructor: ";
 		Log.d(TAG, fTAG + "Initialize recipe box from ArrayList<Recipe>");
 		RECIPES = recipeList;
@@ -72,7 +70,7 @@ public class RecipeBox implements Parcelable {
 		// The format for the file will be:
 		// TITLE || DESCRIPTION || CATEGORIES || INGREDIENTS || INSTRUCTIONS
 		// CATEGORIES, INGREDIENTS, and INSTRUCTIONS will separate the
-		// items with the "|"
+		// items with the " | "
 		
 		Log.d(TAG, "Begin creating recipe box");
 		
@@ -92,8 +90,6 @@ public class RecipeBox implements Parcelable {
 				
 				//Split the based on the pipe delimiter "|"
 				String[] strings = TextUtils.split(line, "\\|\\|");
-			    
-				//Create temporary variables to store the individual components of the recipe
 				
 				//Position zero will always be the Recipe Name
 				Log.v(TAG, "Set recipe name: " + strings[0]);

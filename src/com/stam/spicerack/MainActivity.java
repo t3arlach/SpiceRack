@@ -19,10 +19,6 @@ public class MainActivity extends Activity{
 	private RecipeBox mRecipes = new RecipeBox();
 	private final String TAG = "MainActivity";
 	
-	// Static variable showing the latest search results
-	// TODO Replace with proper implementation
-	public static RecipeBox searchResults;
-	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +26,9 @@ public class MainActivity extends Activity{
         setContentView(R.layout.activity_main);
 
         //Create the storage container for the recipes
-        Log.v(TAG, "Create RecipeBox");
         mRecipes.createBox(getApplicationContext());
         
 	    // Get the SearchView and set the searchable configuration
-	    Log.v(TAG, "Begin search manager configuration");
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 	    SearchView searchView = (SearchView) findViewById(R.id.SearchBar1);//.getRootView();
 	    
@@ -62,70 +56,58 @@ public class MainActivity extends Activity{
     	handleIntent(intent);
     }
     
+    // Function handles all intents created by the main activity 
     private void handleIntent(Intent intent) {
 
     	if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-	        Log.d(TAG, "intent = ACTION_SEARCH");
+	        Log.v(TAG, "intent = ACTION_SEARCH");
 
-	    	String query = intent.getStringExtra(SearchManager.QUERY);
+	    	// Retrieve the query strong from the intent
+	        String query = intent.getStringExtra(SearchManager.QUERY);
 	    	
-	    	// Display results
-	    	Log.d(TAG, "execute doMySearch");
+	    	// Display the results of function doMySearch
 	    	showResults(doMySearch(query));
 	    }
     }
     
+    /* This function calls the RecipeBox search function and converts the results into a new
+     * RecipeBox.
+     */
     public RecipeBox doMySearch(String query) {
 		String fTAG = "-doMySearch";
     	
 		Log.d(TAG+fTAG, "start doMySearch");
 		
-		// Create temp variables for lists of matches in search 
+		// Create temporary variables for lists of matches in search 
 		ArrayList<Recipe> searchResults = new ArrayList<Recipe>();
 		
 		// Check to see if the search matches any of recipes
-		Log.v(TAG+fTAG, "Search names");
 		searchResults.addAll(mRecipes.search(query));
-
 		
-		// Check to see if the search matches any categories of recipes
-			// Categories are not implemented at this time
-		
-		// Create a recipe box out of the results
-		Log.v(TAG+fTAG, "Creating recipe box of results");
-		RecipeBox recipeResults = new RecipeBox(searchResults);
-		
-		// Return search results
-		int numResults = recipeResults.numRecipes();
-		if(numResults == 0){
+		if(searchResults.isEmpty()) {
+			
 			// If the search did not return any results, return null
-			Log.d(TAG+fTAG, "no results, returning null");
 			return null;
 		} else {
-			// return the results
-			// Long term this should return the whole recipe box and the 
-			// searchable activity will map the array
 			
-			// Old code which returns a string array
-			Log.d(TAG+fTAG, "return recipe name list with " + numResults + " results");
-			return recipeResults;
+			// Return the results
+			return new RecipeBox(searchResults);
        }
     }
 
  // Create the intent and start the activity for displaying results
     private void showResults(final RecipeBox results) {
-    	Log.d(TAG, "showResults");
+    	Log.d(TAG, "Start function showResults");
     	
-    	Log.v(TAG, "Create the intent for showing the results");
-		Intent resultsIntent = new Intent(getApplicationContext(), 
-				ResultsActivity.class);
+    	// Create the intent for showing the results
+		Intent resultsIntent = new Intent(getApplicationContext(), ResultsActivity.class);
 		
-		Log.v(TAG, "Place the results RecipeBox into the intent");
+		// Place the results RecipeBox into the intent
 		resultsIntent.putExtra("search_results", results);
 		
-		Log.v(TAG, "Start the new Activity");
+		// Start the new activity
 		startActivity(resultsIntent);
-    
     }
-    
+
+ // End of Class
 }

@@ -39,8 +39,6 @@ public class RecipeActivity extends Activity {
         setupInstructions();
 
 	}
-	
-
 
 	private void setupName(){
 		// Set the recipe name from the selected recipe to the 
@@ -59,8 +57,7 @@ public class RecipeActivity extends Activity {
 		// Write the ingredients to the ingredients field
 		Log.v(TAG, "Set Recipe Ingredients");
 		
-		addTextView((LinearLayout) findViewById(R.id.ingredients_list), 
-				mRecipe.getIngredients());
+		addTextView((LinearLayout) findViewById(R.id.ingredients_list), mRecipe.getIngredients());
 	}
 	
 	private void setupInstructions(){
@@ -78,5 +75,5 @@ public class RecipeActivity extends Activity {
 			ll.addView(tv);
 		}	
 	}
-	
+	// End of Class
 }

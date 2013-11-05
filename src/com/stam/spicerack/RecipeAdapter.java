@@ -1,6 +1,5 @@
 package com.stam.spicerack;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 public class RecipeAdapter extends ArrayAdapter<Recipe> {
 
 	private Context context;
-	private int resource;
 	private Recipe[] items;
 	
 	private final static String TAG = "RecipeAdapter";
@@ -24,7 +22,6 @@ public class RecipeAdapter extends ArrayAdapter<Recipe> {
 	    super(context, textViewResourceId);
 
 	    this.context = context;
-	    this.resource = textViewResourceId;
 	}
 
 	
@@ -33,7 +30,6 @@ public class RecipeAdapter extends ArrayAdapter<Recipe> {
 	    super(context, resource, items);
 
 	    this.context = context;
-	    this.resource = resource;
 	    this.items = items;
 
 	}
