@@ -81,24 +81,8 @@ public class MainActivity extends Activity{
      * RecipeBox.
      */
     public RecipeBox doMySearch(String query) {
-    	
-		Log.v(TAG, "start doMySearch");
-		
-		// Create temporary variables for lists of matches in search 
-		ArrayList<Recipe> searchResults = new ArrayList<Recipe>();
-		
-		// Check to see if the search matches any of recipes
-		searchResults.addAll(mRecipes.search(query));
-		
-		if(searchResults.isEmpty()) {
-			
-			// If the search did not return any results, return null
-			return null;
-		} else {
-			
-			// Return the results
-			return new RecipeBox(searchResults);
-       }
+   
+    	return mRecipes.search(query);
     }
 
  // Create the intent and start the activity for displaying results

@@ -126,7 +126,7 @@ public class RecipeBox implements Parcelable {
 	// Results are prioritized based on where the search term was. The order of 
 	// importance is: NAME, CATEGORY, INGREDIENT, DESCRIPTION, INSTRUCTION. 
 	// 
-	public ArrayList<Recipe> search(String searchTerm){
+	public RecipeBox search(String searchTerm){
 		
 		// Temporary containers to hold the search results until they can 
 		// be combined in mRecipes 
@@ -192,7 +192,7 @@ public class RecipeBox implements Parcelable {
 		mRecipes.addAll(mRecipesINSTRUCTION);
 		
 		// Convert back to ArrayList and return
-		return new ArrayList<Recipe>(mRecipes);
+		return new RecipeBox(new ArrayList<Recipe>(mRecipes));
 		
 	}
 
