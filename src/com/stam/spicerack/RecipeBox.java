@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
@@ -24,38 +25,44 @@ public class RecipeBox implements Parcelable {
 	
 	//Private Variables
 	private static final String TAG = "RecipeBox";
-	private ArrayList<Recipe> RECIPES = new ArrayList<Recipe>();
+	
+	// TODO: Switch from ArrayList to HashSet to prevent duplicates
+	private ArrayList<Recipe> mRecipes = new ArrayList<Recipe>();
 	
 	RecipeBox() {
-		final String fTAG = "Constructor: ";
-		Log.d(TAG, fTAG + "Initialize empty recipe box");
+		Log.v(TAG, "Initialize empty recipe box");
 	}
 	
 	RecipeBox(ArrayList<Recipe> recipeList) {
 		Log.v(TAG, "Initialize recipe box from ArrayList<Recipe>");
-		RECIPES = recipeList;
+		mRecipes = recipeList;
 		
 		//Remove duplicates
 		// TODO implement duplicate removal
 	}
 	
+	/*
+	 * This is the constructor for creating a RecipeBox from a parcel.
+	 */
 	public RecipeBox(Parcel in) {
-		final String fTAG = "Constructor: ";
+		final String fTAG = "Parcel Constructor: ";
 		
-		Log.d(TAG, fTAG + "Initialize recipe box from Parcel");
+		Log.v(TAG, fTAG + "Initialize recipe box from Parcel");
 		
-		Log.v(TAG, fTAG + "Read in the number of recipes to be put into "
-				+ "the RecipeBox");
+		// The first item in the parcel is the number of recipes to be read.
 		int arraySize = in.readInt();
 		
+		// Read in the number of recipes specified in the parcel
 		Log.v(TAG, fTAG + "Read in " + arraySize + " recipes into the ArrayList");
 		for (int i = 0; i < arraySize; i++) {
 
+			// The RecipeBox parcel constructor makes use of the recipe parcel constructor. 
 			Log.v(TAG, fTAG + "Read in the " + i + "th recipe");
 			Recipe r = Recipe.CREATOR.createFromParcel(in);
 
+			// Add the Recipe to the RecipeBox
 			Log.v(TAG, fTAG + "Successfully read in recipe " + r.getName());
-			RECIPES.add(r); 
+			mRecipes.add(r); 
 					
 		}
 		Log.v(TAG, fTAG + "RecipeBox initialized");
@@ -80,7 +87,7 @@ public class RecipeBox implements Parcelable {
 		
         Log.v(TAG, "Buffered Reader Ready");
         
-        // VAriable to hold the lines as they are read
+        // Variable to hold the lines as they are read
 		String line;
         try {
         	//Read in one line from the recipe file 
@@ -105,14 +112,14 @@ public class RecipeBox implements Parcelable {
 				ArrayList<String> recipeIngredients = stringToArrayList(strings[3], splitter);
 			    ArrayList<String> recipeInstructions = stringToArrayList(strings[4], splitter);
 				
-				RECIPES.add(new Recipe(recipeName, recipeDescription, recipeCategories, recipeIngredients, recipeInstructions));
+				mRecipes.add(new Recipe(recipeName, recipeDescription, recipeCategories, recipeIngredients, recipeInstructions));
 				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        Log.d(TAG, "Recipe box complete");
+        Log.v(TAG, "Recipe box complete");
 	}
 	
 	// Returns and array list of recipes that contain the specified term any field
@@ -128,7 +135,7 @@ public class RecipeBox implements Parcelable {
 		ArrayList<Recipe> mRecipesINGREDIENT = new ArrayList<Recipe>();
 		ArrayList<Recipe> mRecipesDESCRIPTION = new ArrayList<Recipe>();
 		ArrayList<Recipe> mRecipesINSTRUCTION = new ArrayList<Recipe>();
-		Iterator<Recipe> iterator = RECIPES.iterator(); 
+		Iterator<Recipe> iterator = mRecipes.iterator(); 
 		
 		// Search all recipes in Recipe Box for name matches
 		while (iterator.hasNext()){
@@ -198,7 +205,7 @@ public class RecipeBox implements Parcelable {
 		ArrayList<String> recipeNames = new ArrayList<String>();
 		
 		//Iterator for moving through the recipe list
-		Iterator<Recipe> iterator = RECIPES.iterator();
+		Iterator<Recipe> iterator = mRecipes.iterator();
 		
 		// Gather the names of all of the recipes
 		while(iterator.hasNext()){
@@ -215,20 +222,91 @@ public class RecipeBox implements Parcelable {
 		return recipeNames;
 	}
 	
+	/*
+	 * Returns an ArrayList of Strings of every ingredient in the RecipeBox. Each ingredient will 
+	 * only appear once.
+	 */
+	// TODO: Test this method
+	public ArrayList<String> ingredientList(){
+		
+		Log.v(TAG, "Create list of recipe names");
+		
+		// Temp variable to hold the ingredient names
+		HashSet<String> ingredients = new HashSet<String>();
+		
+		// Iterator for moving through the recipe list
+		Iterator<Recipe> iterator = mRecipes.iterator();
+		
+		// Gather the names of all of the recipes
+		while(iterator.hasNext()) {
+			
+			ArrayList<String> al = ((Recipe) iterator.next()).getIngredients();
+			
+			for (int i = 0; i < al.size(); i++) {
+				ingredients.add(al.get(i));
+			}
+//				ingredients.add(((Recipe) iterator.next()).getIngredients());
+		}
+		
+		// If the recipe box is empty return null
+		if (ingredients.size() == 0)
+		{
+			return null;
+		}
+		
+		// Return the ArrayList of recipe names
+		return new ArrayList<String>(ingredients);
+	}
+	
+	/*
+	 * Returns an ArrayList of Strings of every category in the RecipeBox. Each ingredient will 
+	 * only appear once.
+	 */
+	// TODO: Test this method
+	public ArrayList<String> categoryList(){
+		
+		Log.v(TAG, "Create list of recipe names");
+		
+		// Temp variable to hold the ingredient names
+		HashSet<String> categories = new HashSet<String>();
+		
+		// Iterator for moving through the recipe list
+		Iterator<Recipe> iterator = mRecipes.iterator();
+		
+		// Gather the names of all of the recipes
+		while(iterator.hasNext()) {
+			
+			ArrayList<String> al = ((Recipe) iterator.next()).getCategories();
+			
+			for (int i = 0; i < al.size(); i++) {
+				categories.add(al.get(i));
+			}
+//				ingredients.add(((Recipe) iterator.next()).getIngredients());
+		}
+		
+		// If the recipe box is empty return null
+		if (categories.size() == 0)
+		{
+			return null;
+		}
+		
+		// Return the ArrayList of recipe names
+		return new ArrayList<String>(categories);
+	}
+	
 	public int numRecipes(){
 		Log.v(TAG, "return length of RECIPES array");
-		return RECIPES.size();
+		return mRecipes.size();
 	}
 	
 	public Recipe getItemAtPosition(int position) {
 		
-		return RECIPES.get(position);
+		return mRecipes.get(position);
 	}
 	
 	public Recipe[] toArray() {
 		
-		return RECIPES.toArray(new Recipe[RECIPES.size()]);
-		
+		return mRecipes.toArray(new Recipe[mRecipes.size()]);
 	}
 	
 	// Private method to split the strings based on the splitter character and 
@@ -240,7 +318,7 @@ public class RecipeBox implements Parcelable {
 		String[] splitString = TextUtils.split(group, splitter);
 		ArrayList<String> al = new ArrayList<String>();
 		
-		
+		// Takes each group in splitString and adds it to the ArrayList
 		for(int i=0; i<splitString.length; i++){
 			Log.v(TAG, "Read group " + splitString[i]);
 			al.add(splitString[i]);
@@ -256,20 +334,26 @@ public class RecipeBox implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel arg0, int arg1) {
-		arg0.writeInt(RECIPES.size());
+		// Write the number of recipes to be written to the parcel
+		arg0.writeInt(mRecipes.size());
 		
-		Iterator<Recipe> iterator = RECIPES.iterator(); 
+		Iterator<Recipe> iterator = mRecipes.iterator(); 
 		
 		// Search all recipes in Recipe Box for name matches
 		while (iterator.hasNext()){
 
-			// Load the next recipe
+			/*
+			 * Load the next recipe and write to parcel using the Recipe write to parcel
+			 * implementation 
+			 */
 			Recipe recipe = iterator.next();
 			recipe.writeToParcel(arg0, 0);
 		}
-		
 	}
 	
+	/*
+	 * Implementation of the required parcelable methods 
+	 */
 	public static final Parcelable.Creator<RecipeBox> CREATOR = 
 			new Parcelable.Creator<RecipeBox>() {
         

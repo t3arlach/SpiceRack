@@ -11,9 +11,14 @@
 
     <!-- The hint text that appears in the search box. -->
     <string name="search_hint">Search for recipe</string>
-    <string name="search_results">Search Results</string>
+    <string name="search_results_title">Search Results</string>
     <string name="title_ingredients">Ingredients</string>
     <string name="title_instructions">Instructions</string>
-    <string name="browse">Browse all recipes</string>
+    <string name="browse_all_title">Browse all recipes</string>
+    
+   	<string name="browse_favorites">Browse your favorite recipes</string>
+    <string name="browse_all">Browse all recipes</string>
+    <string name="browse_category">Browse recipes by category</string>
+    <string name="browse_ingredient">Browse recipes by ingredient</string>
     
 </resources>

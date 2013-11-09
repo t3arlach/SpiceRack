@@ -11,28 +11,32 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
 
 public class ResultsActivity extends Activity{
 
 	private static final String TAG = "ResultsActivity";
-//	private RecipeBox searchResults;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String fTAG = "onCreate: ";
         
-        Log.d(TAG, fTAG + "Set Content View");
+        Log.v(TAG, fTAG + "Set Content View");
         setContentView(R.layout.activity_results);
 	
-        Log.d(TAG, fTAG + "Unpack the Parcel from the intent");
-	
-        Intent i = getIntent();
-//        searchResults = i.getParcelableExtra("selected_recipe");
-//        
-//        showResults(searchResults);
+//        Log.d(TAG, fTAG + "Unpack the Parcel from the intent");
         
-        Log.d(TAG, fTAG + "Unpack the Parcel from the intent");
+        // Load the intent which contains the information to display
+        Intent i = getIntent();
+
+    	// Retrieve the text to be displayed at the top of the page
+        Bundle b =  i.getExtras();
+        TextView t = (TextView) findViewById(R.id.results_title_text);
+        t.setText(b.getString("display_name"));
+        
+        // Unpacks the parcel which contains the search results
+        Log.v(TAG, fTAG + "Unpack the Parcel from the intent");
         showResults((RecipeBox) i.getParcelableExtra("search_results"));
 	}
 

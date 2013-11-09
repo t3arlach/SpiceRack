@@ -25,16 +25,17 @@ public final class R {
     }
     public static final class id {
         public static final int SearchBar1=0x7f0a0001;
-        public static final int action_settings=0x7f0a000b;
+        public static final int action_settings=0x7f0a000c;
         public static final int description_text=0x7f0a0004;
         public static final int ingredients=0x7f0a0005;
         public static final int ingredients_list=0x7f0a0006;
         public static final int instructions=0x7f0a0007;
         public static final int instructions_list=0x7f0a0008;
         public static final int list=0x7f0a0002;
-        public static final int recipe_description=0x7f0a000a;
+        public static final int recipe_description=0x7f0a000b;
         public static final int recipe_name=0x7f0a0003;
-        public static final int recipe_title=0x7f0a0009;
+        public static final int recipe_title=0x7f0a000a;
+        public static final int results_title_text=0x7f0a0009;
         public static final int text=0x7f0a0000;
     }
     public static final class layout {
@@ -52,7 +53,11 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f070001;
         public static final int app_name=0x7f070000;
-        public static final int browse=0x7f070008;
+        public static final int browse_all=0x7f07000a;
+        public static final int browse_all_title=0x7f070008;
+        public static final int browse_category=0x7f07000b;
+        public static final int browse_favorites=0x7f070009;
+        public static final int browse_ingredient=0x7f07000c;
         /**  The hint text that appears in the search box. 
          */
         public static final int search_hint=0x7f070004;
@@ -60,7 +65,7 @@ public final class R {
         /**  The label for use as a searchable item 
          */
         public static final int search_label=0x7f070003;
-        public static final int search_results=0x7f070005;
+        public static final int search_results_title=0x7f070005;
         public static final int title_ingredients=0x7f070006;
         public static final int title_instructions=0x7f070007;
     }
