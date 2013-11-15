@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -28,18 +29,31 @@ public class MainActivity extends Activity{
 
         //Create the storage container for the recipes
         mRecipes.createBox(getApplicationContext());
-        
-        setupSearchableConfig();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
         Log.d(TAG, "onCreateOptionsMenu");
-
-    	// Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_actions, menu);
+        
+        /*
+         * Setup the searchable configuration paramters to manage the search function.
+         */
+        Log.d(TAG, "Setup searchview");
+        
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+	    SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+	    
+	    // Assumes current activity is the searchable activity
+	    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+	    searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+        
+        return super.onCreateOptionsMenu(menu);
     }
     
     protected void onNewIntent(Intent intent) {
@@ -59,20 +73,6 @@ public class MainActivity extends Activity{
 	    	// Display the results of function doMySearch
 	    	showResults(doMySearch(query), getString(R.string.search_results_title));
 	    }
-    }
-    
-    /*
-     * Setup the searchable configuration paramters to manage the search function.
-     */
-    private void setupSearchableConfig() {
-    	
-    	// Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-	    SearchView searchView = (SearchView) findViewById(R.id.SearchBar1);//.getRootView();
-	    
-	    // Assumes current activity is the searchable activity
-	    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-	    searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
     }
     
     /* This function calls the RecipeBox search function and converts the results into a new
