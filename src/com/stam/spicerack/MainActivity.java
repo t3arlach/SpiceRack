@@ -1,7 +1,5 @@
 package com.stam.spicerack;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.SearchManager;
