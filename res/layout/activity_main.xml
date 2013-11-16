@@ -10,31 +10,6 @@
             android:background="@android:drawable/title_bar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
-	<Button
-     android:layout_height="wrap_content"
-     android:layout_width="match_parent"
-     android:text="@string/browse_favorites"
-     android:onClick="browseFavorites"
-     style="?android:attr/borderlessButtonStyle" />
-	<Button
-     android:layout_height="wrap_content"
-     android:layout_width="match_parent"
-     android:text="@string/browse_all"
-     android:onClick="browseAll"
-     style="?android:attr/borderlessButtonStyle" />
-	<Button
-     android:layout_height="wrap_content"
-     android:layout_width="match_parent"
-     android:text="@string/browse_category"
-     android:onClick="browseCategory"
-     style="?android:attr/borderlessButtonStyle" />
-	<Button
-     android:layout_height="wrap_content"
-     android:layout_width="match_parent"
-     android:text="@string/browse_ingredient"
-     android:onClick="browseIngredient" 
-     style="?android:attr/borderlessButtonStyle" />
-
     <ListView
             android:id="@+id/list"
             android:layout_width="fill_parent"

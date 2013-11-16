@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-
+	
+	<!-- App wide strings-->
     <string name="app_name">Spice Rack</string>
-    <string name="search_instructions">Search by recipe, ingredient or category</string>
 
-    <!-- The label for use as a searchable item -->
+    <!-- SearchView strings -->
     <string name="search_label">Recipes</string>
-
-    <!-- The hint text that appears in the search box. -->
+	<string name="search_instructions">Search by recipe, ingredient or category</string>
     <string name="search_hint">Search for recipe</string>
-    <string name="search_results_title">Search Results</string>
-    <string name="title_ingredients">Ingredients</string>
-    <string name="title_instructions">Instructions</string>
+    
+    <!-- Results Activity strings -->
+    <string name="search_results_title">Search results</string>
     <string name="browse_all_title">Browse all recipes</string>
     
-    <!-- Temporary: Toasts that appear when buttons pressed -->
-   	<string name="browse_favorites">Browse your favorite recipes</string>
-    <string name="browse_all">Browse all recipes</string>
-    <string name="browse_category">Browse recipes by category</string>
-    <string name="browse_ingredient">Browse recipes by ingredient</string>
+    <!-- Recipe Activity strings -->
+    <string name="title_ingredients">Ingredients</string>
+    <string name="title_instructions">Instructions</string>
+
+<!--     Temporary: Toasts that appear when buttons pressed -->
+<!--    	<string name="browse_favorites">Browse your favorite recipes</string> -->
+<!--     <string name="browse_all">Browse all recipes</string> -->
+<!--     <string name="browse_category">Browse recipes by category</string> -->
+<!--     <string name="browse_ingredient">Browse recipes by ingredient</string> -->
     
-    <!-- Action Bar text -->
+    <!-- Action Bar Text -->
     <string name="action_browse_favorites">Browse your favorite recipes</string>
     <string name="action_browse_all">Browse all recipes</string>
     <string name="action_spices">Building a spice collection</string>

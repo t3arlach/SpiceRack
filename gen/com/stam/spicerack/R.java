@@ -59,23 +59,22 @@ public final class R {
         public static final int recipes=0x7f050000;
     }
     public static final class string {
-        public static final int action_about=0x7f070012;
-        public static final int action_browse_all=0x7f07000d;
-        /**  Action Bar text 
+        public static final int action_about=0x7f07000e;
+        public static final int action_browse_all=0x7f070009;
+        /**      Temporary: Toasts that appear when buttons pressed 
+    	<string name="browse_favorites">Browse your favorite recipes</string> 
+     <string name="browse_all">Browse all recipes</string> 
+     <string name="browse_category">Browse recipes by category</string> 
+     <string name="browse_ingredient">Browse recipes by ingredient</string> 
+ Action Bar text 
          */
-        public static final int action_browse_favorites=0x7f07000c;
-        public static final int action_help=0x7f070011;
-        public static final int action_search=0x7f07000f;
-        public static final int action_settings=0x7f070010;
-        public static final int action_spices=0x7f07000e;
+        public static final int action_browse_favorites=0x7f070008;
+        public static final int action_help=0x7f07000d;
+        public static final int action_search=0x7f07000b;
+        public static final int action_settings=0x7f07000c;
+        public static final int action_spices=0x7f07000a;
         public static final int app_name=0x7f070000;
-        public static final int browse_all=0x7f070009;
         public static final int browse_all_title=0x7f070007;
-        public static final int browse_category=0x7f07000a;
-        /**  Temporary: Toasts that appear when buttons pressed 
-         */
-        public static final int browse_favorites=0x7f070008;
-        public static final int browse_ingredient=0x7f07000b;
         /**  The hint text that appears in the search box. 
          */
         public static final int search_hint=0x7f070003;

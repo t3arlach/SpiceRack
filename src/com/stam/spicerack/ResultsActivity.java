@@ -62,10 +62,8 @@ public class ResultsActivity extends Activity{
     	} else {
     		// Bind results to list view
 
-    		
     		Log.d(TAG, "Set the adapter for recipe results");
-    		Adapter adapter = new RecipeAdapter(this.getBaseContext(), 
-    				R.layout.recipe_result, 
+    		Adapter adapter = new RecipeAdapter(this.getBaseContext(),R.layout.recipe_result, 
     				results.toArray());
     		
     		// Set the adapter for the list view

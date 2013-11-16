@@ -8,9 +8,15 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.stam.spicerack.RecipeBox;
 
@@ -29,6 +35,9 @@ public class MainActivity extends Activity{
 
         //Create the storage container for the recipes
         mRecipes.createBox(getApplicationContext());
+        
+        // TODO: only show either favorites or recently viewed results
+        populateMainActivityList(mRecipes);
     }
 
     @Override
@@ -59,6 +68,40 @@ public class MainActivity extends Activity{
     protected void onNewIntent(Intent intent) {
     	Log.d(TAG, "onNewIntent");
     	handleIntent(intent);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+//            case R.id.action_search:
+//               // openSearch();
+//                return true;
+        case R.id.action_browse_favorites:
+            browseFavorites();
+            return true;    
+        case R.id.action_browse_all:
+        	browseAll();
+            return true;
+        case R.id.action_spices:
+            // TODO: Implement real click handling
+        	actionBrowseToast(getResources().getString(R.string.action_spices));
+            return true;
+        case R.id.action_settings:
+        	//// TODO: Implement real click handling
+        	actionBrowseToast(getResources().getString(R.string.action_settings));
+            return true;
+        case R.id.action_help:
+            //// TODO: Implement real click handling
+        	actionBrowseToast(getResources().getString(R.string.action_help));
+            return true;
+        case R.id.action_about:
+            //// TODO: Implement real click handling
+        	actionBrowseToast(getResources().getString(R.string.action_about));
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
     
     // Function handles all intents created by the main activity 
@@ -102,35 +145,62 @@ public class MainActivity extends Activity{
     
     /*
      * This function will ultimately display a search results of the users favorite recipes.
-     */
-    		
-    public void browseFavorites(View view) {
+     */		
+    public void browseFavorites() {
         // Do something in response to button click
     	Toast toast = Toast.makeText(this, "Browse Favorites", Toast.LENGTH_SHORT);
-    	toast.show();
-    	
+    	toast.show();	
     }
     
     /*
      * This function listens for a click on the browseAll button. When it receives the click it 
      * passes the full RecipeBox to the display results function.
      */
-    public void browseAll(View view) {
+    public void browseAll() {
         // Pass the full recipe box and the correct text to the show results function.4ewq
     	showResults(mRecipes, getString(R.string.browse_all_title));
     }
     
-    public void browseCategory(View view) {
+    // Stand in action for un-implemented action bar 
+    public void actionBrowseToast(String s) {
         // Do something in response to button click
-    	Toast toast = Toast.makeText(this, "Browse Category", Toast.LENGTH_SHORT);
+    	Toast toast = Toast.makeText(this, "User selected " + s, Toast.LENGTH_SHORT);
     	toast.show();
     }
     
-    public void browseIngredient(View view) {
-        // Do something in response to button click
-    	Toast toast = Toast.makeText(this, "Browse Ingredient", Toast.LENGTH_SHORT);
-    	toast.show();
+    private void populateMainActivityList(final RecipeBox results) {
+    	Log.d(TAG, "Displays the results of the search");
+    	
+    	// Check if results exist
+    	if (results == null){
+    		// TODO Display no results text
+    		Log.d(TAG, "Trying to display null search results");
+    		
+    	} else {
+    		// Bind results to list view
+
+    		Log.v(TAG, "Set the adapter for recipe results");
+    		Adapter adapter = new RecipeAdapter(this.getBaseContext(),R.layout.recipe_result, 
+    				results.toArray());
+    		
+    		// Set the adapter for the list view
+    		((ListView) findViewById(R.id.list)).setAdapter((ListAdapter) adapter);
+    		
+    		// Set the interface for click listener
+    		((ListView) findViewById(R.id.list)).setOnItemClickListener(new OnItemClickListener() {
+
+    			@Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // Build the Intent used to open WordActivity with a specific word Uri
+    				Intent wordIntent = new Intent(getApplicationContext(), 
+    						RecipeActivity.class);
+    				wordIntent.putExtra("selected_recipe", results.getItemAtPosition(position));
+                    startActivity(wordIntent);
+                }
+            });
+    	}	
     }
+    
 
  // End of Class
 }
