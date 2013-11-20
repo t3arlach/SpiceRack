@@ -1,28 +1,19 @@
 package com.stam.spicerack;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 import android.util.Log;
-
-import com.stam.spicerack.Recipe;
 
 
 public class RecipeBox implements Parcelable {
 	
 	//Public Variables
-	
+
 	//Private Variables
 	private static final String TAG = "RecipeBox";
 	
@@ -68,60 +59,14 @@ public class RecipeBox implements Parcelable {
 		Log.v(TAG, fTAG + "RecipeBox initialized");
 		
 	}
-
-	public void createBox(Context context){
-		// createBox reads in a txt file from a pre-defined location and
-		// creates a series of recipes from the text file. 
-		
-		// The format for the file will be:
-		// TITLE || DESCRIPTION || CATEGORIES || INGREDIENTS || INSTRUCTIONS
-		// CATEGORIES, INGREDIENTS, and INSTRUCTIONS will separate the
-		// items with the " | "
-		
-		Log.d(TAG, "Begin creating recipe box");
-		
-		//Open the file containing the recipes
-        final Resources resources = context.getResources();
-        InputStream inputStream = resources.openRawResource(R.raw.recipes);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-		
-        Log.v(TAG, "Buffered Reader Ready");
-        
-        // Variable to hold the lines as they are read
-		String line;
-        try {
-        	//Read in one line from the recipe file 
-			while ((line = reader.readLine()) != null) {
-				Log.v(TAG, "Read line from buffer: " + line);
-				
-				//Split the based on the pipe delimiter "|"
-				String[] strings = TextUtils.split(line, "\\|\\|");
-				
-				//Position zero will always be the Recipe Name
-				Log.v(TAG, "Set recipe name: " + strings[0]);
-				String recipeName = strings[0];
-				
-				//Position zero will always be the Recipe Name
-				Log.v(TAG, "Set recipe description: " + strings[1]);
-			    String recipeDescription = strings[1];
-				
-			    String splitter = "\\|";
-			    
-			    // The array lists for the recipe
-			    ArrayList<String> recipeCategories = stringToArrayList(strings[2], splitter);
-				ArrayList<String> recipeIngredients = stringToArrayList(strings[3], splitter);
-			    ArrayList<String> recipeInstructions = stringToArrayList(strings[4], splitter);
-				
-				mRecipes.add(new Recipe(recipeName, recipeDescription, recipeCategories, recipeIngredients, recipeInstructions));
-				
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        Log.v(TAG, "Recipe box complete");
-	}
 	
+	/*
+	 * Add a recipe to the recipe box.
+	 */
+	public void add(Recipe r) {
+		mRecipes.add(r);
+	}
+
 	// Returns and array list of recipes that contain the specified term any field
 	// Results are prioritized based on where the search term was. The order of 
 	// importance is: NAME, CATEGORY, INGREDIENT, DESCRIPTION, INSTRUCTION. 
@@ -309,24 +254,6 @@ public class RecipeBox implements Parcelable {
 		return mRecipes.toArray(new Recipe[mRecipes.size()]);
 	}
 	
-	// Private method to split the strings based on the splitter character and 
-	// return an array of the sub strings. Used as part of the creation of the
-	// Recipe Box
-	private ArrayList<String> stringToArrayList(String group, String splitter) {
-		
-		// Temp variables for splitting the string
-		String[] splitString = TextUtils.split(group, splitter);
-		ArrayList<String> al = new ArrayList<String>();
-		
-		// Takes each group in splitString and adds it to the ArrayList
-		for(int i=0; i<splitString.length; i++){
-			Log.v(TAG, "Read group " + splitString[i]);
-			al.add(splitString[i]);
-		}
-		
-		return al;
-	}
-
 	@Override
 	public int describeContents() {
 		return 0;

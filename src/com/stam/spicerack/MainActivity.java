@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +25,7 @@ import com.stam.spicerack.RecipeBox;
 
 public class MainActivity extends Activity{
 
-	private RecipeBox mRecipes = new RecipeBox();
+	private ManagedRecipeBox mRecipes;
 	private final String TAG = "MainActivity";
 	
 	@Override
@@ -33,8 +34,8 @@ public class MainActivity extends Activity{
         Log.v(TAG, "Set Content View");
         setContentView(R.layout.activity_main);
 
-        //Create the storage container for the recipes
-        mRecipes.createBox(getApplicationContext());
+        // Create the storage container for the recipes
+        mRecipes = ManagedRecipeBox.createBox(getApplicationContext());
         
         // TODO: only show either favorites or recently viewed results
         populateMainActivityList(mRecipes);
@@ -63,6 +64,14 @@ public class MainActivity extends Activity{
 	    searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
         
         return super.onCreateOptionsMenu(menu);
+    }
+    
+    protected void onResume () {
+    	super.onResume();
+    	
+    	// Make sure ic_star doesn't have any color filters active
+	    Drawable drawable = getResources().getDrawable(R.drawable.ic_action_star);
+    	drawable.setColorFilter(null);
     }
     
     protected void onNewIntent(Intent intent) {
@@ -195,12 +204,12 @@ public class MainActivity extends Activity{
     				Intent wordIntent = new Intent(getApplicationContext(), 
     						RecipeActivity.class);
     				wordIntent.putExtra("selected_recipe", results.getItemAtPosition(position));
+    				Log.v(TAG, "Start RecipeActivity");
                     startActivity(wordIntent);
                 }
             });
     	}	
     }
-    
 
  // End of Class
 }

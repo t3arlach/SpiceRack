@@ -11,11 +11,11 @@ import android.util.Log;
 public class Recipe implements Parcelable{
 	
 	//Private Variables
-	private String name;
-	private String description;
-	private ArrayList<String> categories;
-	private ArrayList<String> ingredients;
-	private ArrayList<String> instructions;
+	private String mName;
+	private String mDescription;
+	private ArrayList<String> mCategories;
+	private ArrayList<String> mIngredients;
+	private ArrayList<String> mInstructions;
 	
 	private static final String TAG = "Recipe";
 	
@@ -25,35 +25,35 @@ public class Recipe implements Parcelable{
 			ArrayList<String> instructions) {
 		super();
 		Log.d(TAG, "Create recipe " + name);
-		this.name = name;
-		this.ingredients = ingredients;
-		this.instructions = instructions;
+		this.mName = name;
+		this.mIngredients = ingredients;
+		this.mInstructions = instructions;
 	}
 	
 	public Recipe(String name, String description, ArrayList<String> categories, 
 					ArrayList<String> ingredients, ArrayList<String> instructions) {
 		super();
 		Log.d(TAG, "Create recipe " + name);
-		this.name = name;
-		this.description = description;
-		this.categories = categories;
-		this.ingredients = ingredients;
-		this.instructions = instructions;
+		this.mName = name;
+		this.mDescription = description;
+		this.mCategories = categories;
+		this.mIngredients = ingredients;
+		this.mInstructions = instructions;
 	}
 	
 	// Private Constructors
 	
 	private Recipe(Parcel in) {
 		Log.v(TAG, "Read name");
-		this.name = in.readString();
+		this.mName = in.readString();
 		Log.v(TAG, "Read description");
-		this.description = in.readString();
+		this.mDescription = in.readString();
 		Log.v(TAG, "Read categories");
-		this.categories = arrayToAL(in.createStringArray());
+		this.mCategories = arrayToAL(in.createStringArray());
 		Log.v(TAG, "Read ingredients");
-		this.ingredients = arrayToAL(in.createStringArray());
+		this.mIngredients = arrayToAL(in.createStringArray());
 		Log.v(TAG, "Read instructions");
-		this.instructions = arrayToAL(in.createStringArray());
+		this.mInstructions = arrayToAL(in.createStringArray());
 
 	}
 	
@@ -72,65 +72,65 @@ public class Recipe implements Parcelable{
 	public String getName(){
 		
 		Log.v(TAG, "getName");
-		return name;
+		return mName;
 	}
 	
 public String getDescription(){
 		
 		Log.v(TAG, "getDescription");
-		return description;
+		return mDescription;
 	}
 	
 	public ArrayList<String> getCategories(){
 	
 	Log.v(TAG, "return Ingredients");
-	return categories;
+	return mCategories;
 }
 
 	public ArrayList<String> getIngredients(){
 		
 		Log.v(TAG, "return Ingredients");
-		return ingredients;
+		return mIngredients;
 	}
 	
 	public ArrayList<String> getInstructions(){
 		
 		Log.v(TAG, "return Instructions");
-		return instructions;
+		return mInstructions;
 	}
 	
 	public boolean nameContains(String string){
 		
-		Log.v(TAG, "Search" + name + " name for " + string);
-		return containsStringLC(string, name);
+		Log.v(TAG, "Search" + mName + " name for " + string);
+		return containsStringLC(string, mName);
 	}
 	
 	public boolean descriptionContains(String string){
 		
-		Log.v(TAG, "Search" + name + " description for " + string);
-		return containsStringLC(string, description);
+		Log.v(TAG, "Search" + mName + " description for " + string);
+		return containsStringLC(string, mDescription);
 	}
 	
 	public boolean categoriesContain(String string){
 		
-		Log.v(TAG, "Search" + name + " categories for " + string);
+		Log.v(TAG, "Search" + mName + " categories for " + string);
 		// Check each line of the categories for the search term "string"
-		return iterateALforQuery(string, categories);
+		return iterateALforQuery(string, mCategories);
 	}
 	
 	public boolean ingredientsContain(String string){
 	
-		Log.v(TAG, "Search" + name + " ingredients for " + string);
+		Log.v(TAG, "Search" + mName + " ingredients for " + string);
 		// Check each line of the ingredients for the search term "string"
-		return iterateALforQuery(string, ingredients);
+		return iterateALforQuery(string, mIngredients);
 	}
 
 	public boolean instructionsContain(String string){
 		
-		Log.v(TAG, "Search" + name + " instructions for " + string);
+		Log.v(TAG, "Search" + mName + " instructions for " + string);
 		
 		// Check each line of the instructions for the search term "string"
-		return iterateALforQuery(string, instructions);
+		return iterateALforQuery(string, mInstructions);
 	}
 	
 	// Helper function to iterate through an ArrayList looking for a specific search term
@@ -183,16 +183,16 @@ public String getDescription(){
 	@Override
 	public void writeToParcel(Parcel arg0, int arg1) {
 		// Writes each variable to the parcel
-		Log.v(TAG, "Write " + name + " to Parcel");
-		arg0.writeString(name);
-		Log.v(TAG, "Write " + description + " to Parcel");
-		arg0.writeString(description);
+		Log.v(TAG, "Write " + mName + " to Parcel");
+		arg0.writeString(mName);
+		Log.v(TAG, "Write " + mDescription + " to Parcel");
+		arg0.writeString(mDescription);
 		Log.v(TAG, "Write categories to Parcel");
-		arg0.writeStringArray(categories.toArray(new String[categories.size()]));
+		arg0.writeStringArray(mCategories.toArray(new String[mCategories.size()]));
 		Log.v(TAG, "Write ingredients to Parcel");
-		arg0.writeStringArray(ingredients.toArray(new String[categories.size()]));
+		arg0.writeStringArray(mIngredients.toArray(new String[mCategories.size()]));
 		Log.v(TAG, "Write instructions to Parcel");
-		arg0.writeStringArray(instructions.toArray(new String[categories.size()]));
+		arg0.writeStringArray(mInstructions.toArray(new String[mCategories.size()]));
 	
 	}
 	
