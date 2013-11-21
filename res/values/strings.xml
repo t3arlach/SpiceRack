@@ -13,6 +13,8 @@
     <!-- Results Activity strings -->
     <string name="search_results_title">Search results</string>
     <string name="browse_all_title">Browse all recipes</string>
+    <string name="no_results_text">No results matched your query</string>
+    
     
     <!-- Recipe Activity strings -->
     <string name="title_recipe_name_placeholder">Recipe Name Placeholder</string>

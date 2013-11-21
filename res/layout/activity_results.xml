@@ -9,12 +9,14 @@
             android:background="@android:drawable/title_bar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
-<!-- 	<SearchView  -->
-<!-- 	    android:id="@+id/SearchBar1" -->
-<!-- 	    android:layout_width="match_parent" -->
-<!-- 	    android:layout_height="wrap_content"> -->
-<!-- 	</SearchView> -->
-
+	<TextView
+            android:id="@+id/no_results_msg"
+            android:text="@string/no_results_text"
+            android:textColor="#8c8c8c"
+            android:textSize="17sp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+	
 	<!-- Primary Results list -->
     <ListView
             android:id="@+id/list"

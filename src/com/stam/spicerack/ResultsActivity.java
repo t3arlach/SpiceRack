@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 public class ResultsActivity extends Activity{
 
+	private TextView mNoResultsTextView;
 	private static final String TAG = "ResultsActivity";
 	
 	@Override
@@ -25,6 +26,10 @@ public class ResultsActivity extends Activity{
         Log.v(TAG, fTAG + "Set Content View");
         setContentView(R.layout.activity_results);
 	
+        mNoResultsTextView = (TextView)findViewById(R.id.no_results_msg);
+        if(mNoResultsTextView == null) {
+        	Log.v(TAG, "NoResultsTextView is null");
+        }
 //        Log.d(TAG, fTAG + "Unpack the Parcel from the intent");
         
         // Load the intent which contains the information to display
@@ -55,11 +60,18 @@ public class ResultsActivity extends Activity{
     	Log.d(TAG, "Displays the results of the search");
     	
     	// Check if results exist
-    	if (results == null){
+    	if (results.numRecipes() == 0) {
     		// TODO Display no results text
-    		Log.v(TAG, "null response");
+    		Log.v(TAG, "No results. Display no results message");
     		
+    		mNoResultsTextView.setVisibility(View.VISIBLE);
+//    		mNoResultsTextView.setText(R.string.no_results_text);
+//    		mNoResultsTextView.invalidate();
     	} else {
+    		// Make sure the no results message isn't shown
+    		mNoResultsTextView.setVisibility(View.GONE);
+//    		mNoResultsTextView.invalidate();
+    		
     		// Bind results to list view
 
     		Log.d(TAG, "Set the adapter for recipe results");
