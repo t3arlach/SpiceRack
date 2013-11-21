@@ -65,12 +65,9 @@ public class ResultsActivity extends Activity{
     		Log.v(TAG, "No results. Display no results message");
     		
     		mNoResultsTextView.setVisibility(View.VISIBLE);
-//    		mNoResultsTextView.setText(R.string.no_results_text);
-//    		mNoResultsTextView.invalidate();
     	} else {
     		// Make sure the no results message isn't shown
     		mNoResultsTextView.setVisibility(View.GONE);
-//    		mNoResultsTextView.invalidate();
     		
     		// Bind results to list view
 
