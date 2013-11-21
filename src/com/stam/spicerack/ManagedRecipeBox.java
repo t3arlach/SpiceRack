@@ -6,8 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -104,6 +102,23 @@ public class ManagedRecipeBox extends RecipeBox {
 		return mFavorites;
 	}
 	
+	public RecipeBox favoriteBox() {
+		// Create RecipeBox to hold recipes in favorites list
+		RecipeBox mFavoriteRecipeBox = new RecipeBox(); 
+		
+		// Fetch the recipes and add the to the recipe box
+		RecipeBox mTemp;
+		for (String s : mFavorites) {
+			mTemp = mMRB.search(s);
+			if (mTemp.numRecipes() == 1) {
+				mFavoriteRecipeBox.add(mTemp.getItemAtPosition(0));
+			} else {
+				Log.e(TAG, "Favorite search term returned more than one recipe");
+			}
+		}
+		return mFavoriteRecipeBox;
+	}
+	
 	public boolean isFavorite(String s) {
 		return mFavorites.contains(s);
 	}
@@ -112,8 +127,10 @@ public class ManagedRecipeBox extends RecipeBox {
 		if(!mFavorites.remove(s)) {
 			mFavorites.add(s);
 			Log.v(TAG, s + " added to favorites");
+			Log.v(TAG, mFavorites.size() + " recipes in favorites list");
 		} else {
 			Log.v(TAG, s + " removed from favorites");
+			Log.v(TAG, mFavorites.size() + " recipes in favorites list");
 		}
 		writeFavoritesToPreferences(c);
 	}

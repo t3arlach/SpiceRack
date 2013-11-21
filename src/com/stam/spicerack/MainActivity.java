@@ -157,8 +157,7 @@ public class MainActivity extends Activity{
      */		
     public void browseFavorites() {
         // Do something in response to button click
-    	Toast toast = Toast.makeText(this, "Browse Favorites", Toast.LENGTH_SHORT);
-    	toast.show();	
+    	showResults(mRecipes.favoriteBox(), "Favorite Recipes");
     }
     
     /*
