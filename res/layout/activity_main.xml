@@ -6,7 +6,7 @@
             android:id="@+id/text"
             android:textColor="?android:textColorPrimary"
             android:textSize="20sp"
-            android:text="@string/search_instructions"
+            android:text="@string/featured_recipe_title"
             android:background="@android:drawable/title_bar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />

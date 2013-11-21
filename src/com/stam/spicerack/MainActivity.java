@@ -38,7 +38,7 @@ public class MainActivity extends Activity{
         mRecipes = ManagedRecipeBox.createBox(getApplicationContext());
         
         // TODO: only show either favorites or recently viewed results
-        populateMainActivityList(mRecipes);
+        populateMainActivityList(mRecipes.search("Featured"));
     }
 
     @Override
@@ -157,7 +157,7 @@ public class MainActivity extends Activity{
      */		
     public void browseFavorites() {
         // Do something in response to button click
-    	showResults(mRecipes.favoriteBox(), "Favorite Recipes");
+    	showResults(mRecipes.favoriteBox(), getString(R.string.browse_favs_title));
     }
     
     /*
