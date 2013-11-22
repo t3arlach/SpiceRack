@@ -39,6 +39,9 @@ public class MainActivity extends Activity{
         
         // TODO: only show either favorites or recently viewed results
         populateMainActivityList(mRecipes.search("Featured"));
+        
+        
+        Log.d(TAG, "Number of favorite recipes: " + mRecipes.favoriteList().size());
     }
 
     @Override

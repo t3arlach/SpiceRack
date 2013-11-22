@@ -50,6 +50,7 @@ public class ManagedRecipeBox extends RecipeBox {
 			return mMRB;
 		}
 		
+		
 		// Initialize the variables
 		mMRB = new ManagedRecipeBox();
 		mFavorites = new ArrayList<String>();
@@ -87,13 +88,15 @@ public class ManagedRecipeBox extends RecipeBox {
 			    ArrayList<String> recipeInstructions = stringToArrayList(strings[4], splitter);
 				
 				mMRB.add(new Recipe(recipeName, recipeDescription, recipeCategories, recipeIngredients, recipeInstructions));
-				
-				readFavoritesFromPreferences(context);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    
+	    Log.v(TAG, "Read in favorites from shared preferences");
+	    readFavoritesFromPreferences(context);
+	    
 	    Log.v(TAG, "Recipe box complete");
 	    return mMRB;
 	}
@@ -112,10 +115,12 @@ public class ManagedRecipeBox extends RecipeBox {
 			mTemp = mMRB.search(s);
 			if (mTemp.numRecipes() == 1) {
 				mFavoriteRecipeBox.add(mTemp.getItemAtPosition(0));
+				Log.e(TAG, s + " added to Favorite Box");
 			} else {
 				Log.e(TAG, "Favorite search term returned more than one recipe");
 			}
 		}
+		Log.e(TAG, mFavoriteRecipeBox + " recipes in returned favorite box");
 		return mFavoriteRecipeBox;
 	}
 	
@@ -124,13 +129,13 @@ public class ManagedRecipeBox extends RecipeBox {
 	}
 	
 	public void toggleFavorite(String s, Context c) {
-		if(!mFavorites.remove(s)) {
+		if(mFavorites.remove(s) == false) {
 			mFavorites.add(s);
-			Log.v(TAG, s + " added to favorites");
-			Log.v(TAG, mFavorites.size() + " recipes in favorites list");
+			Log.e(TAG, s + " added to favorites");
+			Log.e(TAG, mFavorites.size() + " recipes in favorites list");
 		} else {
-			Log.v(TAG, s + " removed from favorites");
-			Log.v(TAG, mFavorites.size() + " recipes in favorites list");
+			Log.e(TAG, s + " removed from favorites");
+			Log.e(TAG, mFavorites.size() + " recipes in favorites list");
 		}
 		writeFavoritesToPreferences(c);
 	}
@@ -152,7 +157,7 @@ public class ManagedRecipeBox extends RecipeBox {
 	    // Put the HashSet into the editor and apply the results;
 	    editor.putStringSet(RBS_FAV, hs);
 	    if(editor.commit()){
-	    	Log.v(TAG, "Favorites updated in SharedPreferences");
+	    	Log.e(TAG, hs.size() + " favorites saved to SharedPreferences");
 	    }
 	}
 	
@@ -165,9 +170,10 @@ public class ManagedRecipeBox extends RecipeBox {
 	    hs = (HashSet<String>) settings.getStringSet(RBS_FAV, new HashSet<String>());
 	    if(hs != null) {
 	    	mFavorites.addAll(hs);
-	    	Log.v(TAG, "Read Favorites from SharedPreferences");
+	    	Log.e(TAG, "Read " + hs.size() + " favorites from SharedPreferences");
+	    	Log.e(TAG, "mFavorites is now " + mFavorites.size() + " items long");
 	    } else {
-	    	Log.v(TAG, "No Favorites key in SharedPreferences");
+	    	Log.e(TAG, "No Favorites key in SharedPreferences");
 	    }
 	}
 	
