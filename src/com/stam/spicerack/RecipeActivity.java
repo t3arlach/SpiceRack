@@ -47,6 +47,9 @@ public class RecipeActivity extends Activity {
         
         setupInstructions();
         
+        // Enable up navigation in the action bar
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        
         final TextView tv = (TextView) findViewById(R.id.recipe_name);
         
         findViewById(R.id.recipe_name).setOnTouchListener(new RightDrawableOnTouchListener(tv) {

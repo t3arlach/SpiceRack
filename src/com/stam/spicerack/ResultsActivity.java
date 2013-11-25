@@ -43,6 +43,9 @@ public class ResultsActivity extends Activity{
         // Unpacks the parcel which contains the search results
         Log.v(TAG, fTAG + "Unpack the Parcel from the intent");
         showResults((RecipeBox) i.getParcelableExtra("search_results"));
+        
+        // Enable up navigation in the action bar
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 
