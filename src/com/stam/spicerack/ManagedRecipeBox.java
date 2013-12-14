@@ -6,11 +6,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 /*
  * Singleton class which opens the main recipe repository. The main 
@@ -42,14 +44,17 @@ public class ManagedRecipeBox extends RecipeBox {
 		// CATEGORIES, INGREDIENTS, and INSTRUCTIONS will separate the
 		// items with the " | "
 		
-		Log.d(TAG, "Begin creating recipe box");
-		
-		// Null check context
+		/* 
+		 * Check to see if the managed recipe box has already been created. This class is a 
+		 * singleton pattern class so if the object already in existence then it is returned.
+		 * Otherwise the object is created from the stored text file. 
+		 */
 		if(mMRB != null) {
 			Log.d(TAG, "ManagedRecipebox has already been created");
 			return mMRB;
 		}
 		
+		Log.d(TAG, "Begin creating recipe box");
 		
 		// Initialize the variables
 		mMRB = new ManagedRecipeBox();
@@ -133,9 +138,13 @@ public class ManagedRecipeBox extends RecipeBox {
 			mFavorites.add(s);
 			Log.e(TAG, s + " added to favorites");
 			Log.e(TAG, mFavorites.size() + " recipes in favorites list");
+			Toast t = Toast.makeText(c, s + " added to favorites", Toast.LENGTH_SHORT);
+			t.show();
 		} else {
 			Log.e(TAG, s + " removed from favorites");
 			Log.e(TAG, mFavorites.size() + " recipes in favorites list");
+			Toast t = Toast.makeText(c, s + " removed from favorites", Toast.LENGTH_SHORT);
+			t.show();
 		}
 		writeFavoritesToPreferences(c);
 	}
