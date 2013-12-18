@@ -27,18 +27,22 @@ public final class R {
         public static final int ic_spicerack_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int action_about=0x7f0a0012;
-        public static final int action_browse_all=0x7f0a000f;
-        public static final int action_browse_favorites=0x7f0a000e;
-        public static final int action_help=0x7f0a0011;
-        public static final int action_search=0x7f0a000d;
-        public static final int action_settings=0x7f0a000c;
-        public static final int action_spices=0x7f0a0010;
+        public static final int action_about=0x7f0a0016;
+        public static final int action_browse_all=0x7f0a0013;
+        public static final int action_browse_favorites=0x7f0a0012;
+        public static final int action_help=0x7f0a0015;
+        public static final int action_search=0x7f0a0011;
+        public static final int action_settings=0x7f0a0010;
+        public static final int action_spices=0x7f0a0014;
         public static final int description_text=0x7f0a0003;
         public static final int ingredients=0x7f0a0004;
+        public static final int ingredients_layout=0x7f0a000c;
         public static final int ingredients_list=0x7f0a0005;
+        public static final int ingredients_placeholder=0x7f0a000d;
         public static final int instructions=0x7f0a0006;
+        public static final int instructions_layout=0x7f0a000e;
         public static final int instructions_list=0x7f0a0007;
+        public static final int instructions_placeholder=0x7f0a000f;
         public static final int list=0x7f0a0001;
         public static final int no_results_msg=0x7f0a0009;
         public static final int recipe_description=0x7f0a000b;
@@ -52,6 +56,7 @@ public final class R {
         public static final int activity_recipe=0x7f030001;
         public static final int activity_results=0x7f030002;
         public static final int recipe_result=0x7f030003;
+        public static final int test_layout=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -120,6 +125,9 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
+        public static final int Content=0x7f080004;
+        public static final int Heading=0x7f080003;
+        public static final int Title=0x7f080002;
     }
     public static final class xml {
         public static final int searchable=0x7f040000;

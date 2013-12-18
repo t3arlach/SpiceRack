@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dbe2e5"
+    android:orientation="vertical" >
+
+<!-- Title for page -->
+
+    <TextView
+        android:id="@+id/recipe_name"
+        style="@style/Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/ic_action_star"
+        android:text="@string/title_recipe_name_placeholder"
+         />
+
+<!-- Description -->
+    <TextView
+        android:id="@+id/description_text"
+        style="@style/Content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+        
+<!-- Ingredients layout -->
+   	<LinearLayout
+        android:id="@+id/ingredients_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp" >
+        
+<!-- Ingredients Heading -->
+
+   		<TextView
+   		    android:id="@+id/ingredients"
+   		    style="@style/Heading"
+   		    android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+   		    android:text="@string/title_ingredients" />
+
+<!-- Ingredients List -->
+
+		<LinearLayout
+		    style="@style/Content"		    
+		    android:id="@+id/ingredients_list"
+		    android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+		    android:orientation="vertical" >
+
+			<TextView 
+		            android:id="@+id/ingredients_placeholder"
+		            android:orientation="vertical"
+		            android:layout_width="match_parent"
+        			android:layout_height="wrap_content"
+		            android:text="@string/title_ingredients" />
+		</LinearLayout>
+	</LinearLayout>
+
+<!-- Instructions Layout -->
+	<LinearLayout
+	    android:id="@+id/instructions_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="0dp"
+        android:paddingBottom="16dp"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp" >
+        
+<!-- Instructions Heading -->
+	    <TextView
+	        style="@style/Heading"
+	        android:id="@+id/instructions"
+	        android:text="@string/title_instructions"
+	        android:layout_width="match_parent"
+        	android:layout_height="wrap_content" />
+<!-- Instructions List -->
+	    <LinearLayout
+	        android:id="@+id/instructions_list"
+	        android:orientation="vertical"
+	        android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+	        style="@style/Content" >
+	        <TextView 
+	            android:id="@+id/instructions_placeholder"
+	            android:orientation="vertical"
+	            android:text="@string/title_instructions"
+	            android:layout_width="match_parent"
+        		android:layout_height="wrap_content" />
+	        </LinearLayout>
+	</LinearLayout>
+
+
+</LinearLayout>

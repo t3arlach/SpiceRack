@@ -31,7 +31,7 @@ public class RecipeActivity extends Activity {
         mRecipes = ManagedRecipeBox.createBox(getApplicationContext());
         
         Log.d(TAG, fTAG + "Display the selected recipe");
-        setContentView(R.layout.activity_recipe);
+        setContentView(R.layout.test_layout);
         
         Log.v(TAG, fTAG + "Get the intent for the activity");
         Intent i = getIntent();
@@ -160,13 +160,14 @@ public class RecipeActivity extends Activity {
 	private void setupIngredients(){
 		// Write the ingredients to the ingredients field
 		Log.v(TAG, "Set Recipe Ingredients");
-		
+		findViewById(R.id.ingredients_placeholder).setVisibility(View.GONE);
 		addTextView((LinearLayout) findViewById(R.id.ingredients_list), mRecipe.getIngredients());
 	}
 	
 	private void setupInstructions(){
 		// Write the instructions to the instructions field
 		Log.v(TAG, "Set Recipe Instructions");
+		findViewById(R.id.instructions_placeholder).setVisibility(View.GONE);
 		addTextView((LinearLayout) findViewById(R.id.instructions_list), 
 				mRecipe.getInstructions());
 	}
